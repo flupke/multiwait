@@ -47,15 +47,15 @@ shortcut for ``redis-dataset-loaded: {}``.
 
 All conditions at least accept the following arguments:
 
-``timeout``
+timeout
     Maximum execution time for the condition, in seconds before giving up. The
     default is no timeout.
 
-``warmup``
+warmup
     Sleep for this amount of time before starting testing for the condition.
     The default is no warm-up time.
 
-``test_interval``
+test_interval
     An interval in seconds between two tests. The default is 0.1 second.
 
 Global default arguments can be specified in the ``defaults`` top-level key in
