@@ -12,12 +12,14 @@ class RedisDatasetLoaded(Condition):
     defaults = {
         'host': 'localhost',
         'port': 6379,
+        'password': None,
     }
 
     def test(self):
         import redis
 
-        client = redis.StrictRedis(host=self.host, port=self.port)
+        client = redis.StrictRedis(host=self.host, port=self.port,
+                password=self.password)
         try:
             client.dbsize()
         except redis.ResponseError as exc:

@@ -73,6 +73,8 @@ redis-dataset-loaded
 
     * ``host``: the host of the Redis server (default: "localhost")
     * ``port``: the port number of the Redis server (default: 6379)
+    * ``password``: the password used to connect to the Redis server (default:
+      no password)
 
 file-present
 
