@@ -1,0 +1,7 @@
+conditions:
+    - redis-dataset-loaded
+    - file-absent:
+        path: /path/to/file
+    - file-present:
+        path: /tmp/foowawe
+        timeout: 1
