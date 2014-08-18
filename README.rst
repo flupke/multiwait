@@ -45,7 +45,7 @@ also write the condition name alone if doesn't take arguments or you just want
 to use the defaults; in the example above ``redis-dataset-loaded`` is a
 shortcut for ``redis-dataset-loaded: {}``.
 
-All conditions at least accepts the following arguments:
+All conditions at least accept the following arguments:
 
 ``timeout``
     Maximum execution time for the condition, in seconds before giving up. The
