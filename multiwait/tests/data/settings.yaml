@@ -1,7 +1,12 @@
+defaults:
+    timeout: 60
+
 conditions:
     - redis-dataset-loaded
     - file-absent:
-        path: /path/to/file
+        path: /path/to/lockfile
+        warmup: 10
+        test_interval: 1
     - file-present:
-        path: /tmp/foowawe
-        timeout: 1
+        path: /path/to/socket
+        timeout: 15
