@@ -1,0 +1,7 @@
+News
+====
+
+0.1
+---
+
+First release, mostly untested, don't use it ;)
