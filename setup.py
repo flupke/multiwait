@@ -8,12 +8,10 @@ README = open(os.path.join(here, 'README.rst')).read()
 NEWS = open(os.path.join(here, 'NEWS.txt')).read()
 
 
-version = '0.1'
+version = '0.1.1'
 
 install_requires = [
-    # List your project dependencies here.
-    # For more details, see:
-    # http://packages.python.org/distribute/setuptools.html#declaring-dependencies
+    'PyYAML',
 ]
 
 
