@@ -22,6 +22,8 @@ class RedisDatasetLoaded(Condition):
                 password=self.password)
         try:
             client.dbsize()
+        except redis.BusyLoadingError:
+            return False
         except redis.ResponseError as exc:
             if exc.args[0].startswith('LOADING'):
                 return False
