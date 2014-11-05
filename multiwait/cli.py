@@ -21,7 +21,7 @@ def main():
 
     # Load settings
     with open(options.settings) as fp:
-        settings = yaml.load(fp)
+        settings = yaml.safe_load(fp)
 
     # Discover condition modules
     modules.discover()
