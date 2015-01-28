@@ -82,6 +82,7 @@ redis-dataset-loaded
     * ``port``: the port number of the Redis server (default: 6379)
     * ``password``: the password used to connect to the Redis server (default:
       no password)
+    * ``ignore_connection_errors``: ignore connection errors (default: True)
 
 file-present
 
@@ -94,3 +95,10 @@ file-absent
     Wait until a file is not present on the filesystem.
 
     * ``path`` (required): the path of the file
+
+x11-running
+
+    Wait until the X11 system is running.
+
+    * ``default_display``: for systems not using Xauthority cookies, try to
+      connect to this display (default: ":0")

@@ -18,12 +18,12 @@ class X11Running(Condition):
     '''
 
     defaults = {
-        'default_display': 0,
+        'default_display': ':0',
     }
 
     def test(self):
         # Sometimes Xauth is not needed
-        env = {'DISPLAY': ':%s' % self.default_display}
+        env = {'DISPLAY': self.default_display}
         if check_x11(env):
             return True
 
