@@ -3,7 +3,7 @@ multiwait
 
 multiwait allows to run a command after conditions have been fulfilled. For
 example you can use it to start a program after Redis has finished loading its
-dataset into memory, or after a lock file has disappeared (or both).
+dataset into memory, or after a lock file has disappeared.
 
 The settings are given in a YAML file, for example:
 
@@ -25,14 +25,21 @@ The settings are given in a YAML file, for example:
 Then you point the ``multiwait`` command to the settings and the command you
 want to run::
 
-    $ multiwait --settings /path/to/settings.yaml echo "foo"
+    $ multiwait --settings /path/to/settings.yaml echo foo
 
 Here ``echo foo`` will only be run once Redis has finished loading its dataset
 in memory, the ``/path/to/lockfile`` has disappeared, and ``/path/to/socket``
 exists.
 
-The command will replace ``multiwait`` process, so it's safe to use in process
-managers.
+You can also specify simple conditions directly from the command line::
+
+    $ multiwait --cond file-absent:path=/path/to/lockfile,timeout=3 echo foo
+
+The command will replace the ``multiwait`` process, keeping the same PID, so
+it's safe for use in process managers.
+
+If no command is specified, check all conditions and exit with a non-zero
+return code if one of them fails.
 
 Conditions
 ==========

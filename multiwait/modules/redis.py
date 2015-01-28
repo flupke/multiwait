@@ -13,6 +13,7 @@ class RedisDatasetLoaded(Condition):
         'host': 'localhost',
         'port': 6379,
         'password': None,
+        'ignore_connection_errors': True,
     }
 
     def test(self):
@@ -29,6 +30,10 @@ class RedisDatasetLoaded(Condition):
                 return False
             else:
                 raise
+        except redis.ConnectionError:
+            if self.ignore_connection_errors:
+                return False
+            raise
         else:
             return True
 

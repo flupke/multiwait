@@ -3,7 +3,7 @@ import multiprocessing
 from multiprocessing.pool import ThreadPool
 import traceback
 
-from multiwait.exceptions import NameConflict
+from multiwait.exceptions import NameConflict, Timeout
 from multiwait.utils import recursive_import
 
 
@@ -73,12 +73,14 @@ def discover():
     recursive_import(__name__)
 
 
-def wait_parallel(conditions):
+def wait_parallel(conditions, print_results=False):
     '''
     Wait for all *conditions* to be fulfilled.
 
     Conditions are run in parallel threads. Return a boolean indicating if all
     the conditions completed without raising an exception.
+
+    If *print_results* is true, print a line for each condition result.
     '''
     # Run all conditions in a threads pool
     pool = ThreadPool(len(conditions))
@@ -90,24 +92,27 @@ def wait_parallel(conditions):
     # Wait for conditions to finish and check for errors
     success = True
     for cond, result in results:
-        # We do this strange while loop to poll AsyncResult.get() of just
-        # calling AsyncResult.get(cond.timeout) to avoid blocking the main
+        # We do this strange while loop to poll AsyncResult.get() instead of
+        # just calling AsyncResult.get(cond.timeout) to avoid blocking the main
         # thread when timeout is None, and respond to ctrl+c
-        start_time = time.time()
-        while (cond.timeout is None or
-                time.time() - start_time < cond.timeout):
+        while True:
             try:
                 result.get(0.1)
             except multiprocessing.TimeoutError:
                 pass
-            except:
+            except Timeout:
+                if print_results:
+                    print '%r: failed' % cond
                 success = False
+                break
+            except:
                 print 'Error running %r:\n%s' % (cond, traceback.format_exc())
+                success = False
                 break
             else:
+                if print_results:
+                    print '%r: ok' % cond
                 break
-        else:
-            success = False
-            print '%r timed out' % cond
+
     return success
 

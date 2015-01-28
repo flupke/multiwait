@@ -15,9 +15,9 @@ class Condition(object):
     required = []
 
     def __init__(self, warmup=0, timeout=None, test_interval=0.1, **kwargs):
-        self.warmup = warmup
-        self.timeout = timeout
-        self.test_interval = test_interval
+        self.warmup = float(warmup)
+        self.timeout = float(timeout) if timeout is not None else None
+        self.test_interval = float(test_interval)
         for key, default in self.defaults.items():
             setattr(self, key, kwargs.pop(key, default))
         for key in self.required:
